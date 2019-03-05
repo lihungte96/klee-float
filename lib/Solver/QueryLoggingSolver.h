@@ -25,6 +25,13 @@ class QueryLoggingSolver : public SolverImpl {
 
 protected:
   Solver *solver;
+
+#if LLVM_VERSION_CODE >= LLVM_VERSION(3, 6)
+  std::error_code ErrorCode;
+#else
+  std::string ErrorCode;
+#endif
+
   std::string ErrorInfo;
   llvm::raw_ostream *os;
   // @brief Buffer used by logBuffer

@@ -42,11 +42,11 @@ QueryLoggingSolver::QueryLoggingSolver(Solver *_solver, std::string path,
 #ifdef HAVE_ZLIB_H
   if (!CreateCompressedQueryLog) {
 #endif
-#if LLVM_VERSION_CODE >= LLVM_VERSION(3, 5)
-    os = new llvm::raw_fd_ostream(path.c_str(), ErrorInfo,
+#if LLVM_VERSION_CODE >= LLVM_VERSION(3, 6)
+    os = new llvm::raw_fd_ostream(path.c_str(), ErrorCode,
                                   llvm::sys::fs::OpenFlags::F_Text);
 #else
-    os = new llvm::raw_fd_ostream(path.c_str(), ErrorInfo);
+    os = new llvm::raw_fd_ostream(path.c_str(), ErrorCode);
 #endif
 #ifdef HAVE_ZLIB_H
   } else {

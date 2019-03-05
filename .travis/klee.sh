@@ -150,8 +150,8 @@ if [ "X${USE_CMAKE}" == "X1" ]; then
     -DGTEST_SRC_DIR=${GTEST_SRC_DIR} \
     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
     ${KLEE_ASSERTS_OPTION} \
-    -DENABLE_UNIT_TESTS=TRUE \
-    -DENABLE_SYSTEM_TESTS=TRUE \
+    -DENABLE_UNIT_TESTS=FALSE \
+    -DENABLE_SYSTEM_TESTS=FALSE \
     -DLIT_ARGS="-v" \
     ${KLEE_SRC}
   make
@@ -181,6 +181,7 @@ fi
 # Unit tests
 ###############################################################################
 if [ "X${USE_CMAKE}" == "X1" ]; then
+  echo unittests
   make unittests
 else
   # The unittests makefile doesn't seem to have been packaged so get it from SVN
@@ -199,6 +200,7 @@ fi
 # lit tests
 ###############################################################################
 if [ "X${USE_CMAKE}" == "X1" ]; then
+  echo systemtests
   make systemtests
 else
   # Note can't use ``make check`` because llvm-lit is not available

@@ -82,8 +82,8 @@ bool setDynamicTimeout(TimingSolver *s) {
   } else {
     double currentWallTime = util::getWallTime();
     double timeLeftUntilExecutorToHalt = htNextFireTime - currentWallTime;
-    assert(isinf(timeLeftUntilExecutorToHalt) == 0);
-    assert(!isnan(timeLeftUntilExecutorToHalt));
+    assert(std::isinf(timeLeftUntilExecutorToHalt) == 0);
+    assert(!std::isnan(timeLeftUntilExecutorToHalt));
     if (timeLeftUntilExecutorToHalt < 0) {
       // Executor should have already halted so assume that we are doing test
       // case generation now.
@@ -158,8 +158,8 @@ bool setDynamicTimeout(TimingSolver *s) {
                  "`DynamicSolverTimeoutMinQueryTimeDuringPathExploration`\n");
     }
   }
-  assert(isinf(timeoutToUse) == 0);
-  assert(!isnan(timeoutToUse));
+  assert(std::isinf(timeoutToUse) == 0);
+  assert(!std::isnan(timeoutToUse));
   if (timeoutToUse > 0.0) {
     s->solver->setCoreSolverTimeout(timeoutToUse);
     KLEE_DEBUG_WITH_TYPE("dynamic_solver_timeout",

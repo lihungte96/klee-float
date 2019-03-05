@@ -17,8 +17,10 @@
 #include "klee/util/ExprUtil.h"
 #include "../Expr/FindArrayAckermannizationVisitor.h" // FIXME: No relative includes!
 #include "llvm/Support/CommandLine.h"
-#include "llvm/Support/raw_ostream.h"
+// #include "llvm/Support/raw_ostream.h"
 #include "llvm/Support/ErrorHandling.h"
+
+#include "llvm/Support/FileSystem.h"
 
 namespace {
 llvm::cl::opt<std::string> Z3QueryDumpFile(
@@ -112,8 +114,8 @@ Z3SolverImpl::Z3SolverImpl()
     std::string error;
     // FIXME: This partially comes from KleeHandler::openOutputFile(). That
     // code should be refactored so we can use it here.
-    dumpedQueriesFile = new llvm::raw_fd_ostream(Z3QueryDumpFile.c_str(), error,
-                                                 llvm::sys::fs::F_None);
+    //dumpedQueriesFile = new llvm::raw_fd_ostream(Z3QueryDumpFile.c_str(), error,
+    //                                             llvm::sys::fs::F_None);
     if (!error.empty()) {
       llvm::errs() << "Error creating file for dumping Z3 queries:" << error
                    << "\n";
@@ -269,14 +271,20 @@ bool Z3SolverImpl::internalRunSolver(
     Z3_solver_assert(builder->ctx, theSolver, sideConstraint);
   }
 
+  /*
   if (dumpedQueriesFile) {
-    *dumpedQueriesFile << "; start Z3 query\n";
-    *dumpedQueriesFile << Z3_solver_to_string(builder->ctx, theSolver);
-    *dumpedQueriesFile << "(check-sat)\n";
-    *dumpedQueriesFile << "(reset)\n";
-    *dumpedQueriesFile << "; end Z3 query\n\n";
+    std::string BufferString = "";
+    llvm::raw_string_ostream logBuffer(BufferString);
+    logBuffer  << "; start Z3 query\n";
+    logBuffer << Z3_solver_to_string(builder->ctx, theSolver);
+    logBuffer << "(check-sat)\n";
+    logBuffer << "(reset)\n";
+    logBuffer << "; end Z3 query\n\n";
+    logBuffer.flush();
+    // *dumpedQueriesFile << logBuffer.str();
     dumpedQueriesFile->flush();
   }
+  */
 
   ::Z3_lbool satisfiable = Z3_solver_check(builder->ctx, theSolver);
   runStatusCode = handleSolverResponse(theSolver, satisfiable, objects, values,

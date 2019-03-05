@@ -8,6 +8,9 @@
 //===----------------------------------------------------------------------===//
 #include "klee/util/APFloatEval.h"
 #include "llvm/Support/raw_ostream.h"
+
+#include "llvm/Support/ErrorHandling.h"
+
 #include <cstdlib>
 #include <fenv.h>
 #include <math.h>
@@ -61,7 +64,7 @@ llvm::APInt GetAPIntFromLongDouble(long double ld) {
   uint64_t data[] = {0, 0};
   assert(sizeof(ld) <= sizeof(data));
   memcpy(data, &ld, 10);
-  llvm::APInt apint(/*numBits=*/80, data);
+  llvm::APInt apint(/*numBits=*/80, 10, data);
   return apint;
 }
 #endif

@@ -9,6 +9,8 @@
 #include "FindArrayAckermannizationVisitor.h"
 #include "llvm/ADT/ArrayRef.h"
 
+#include "llvm/Support/ErrorHandling.h"
+
 namespace {
 using namespace klee;
 ref<Expr> getFirstExpr(const ExprHashSet &hs) {
