@@ -544,8 +544,8 @@ Module *klee::linkWithLibrary(Module *module,
     ec = arch.getError();
     llvm::object::Binary *arch = archOwner.get();
 #else
-    OwningPtr<object::Binary> arch;
-    ec = object::createBinary(Buffer.take(), arch);
+    OwningPtr<object::Binary> archOwner;
+    ec = object::createBinary(Buffer.take(), archOwner);
     llvm::object::Binary *arch = archOwner.get();
 #endif
 
