@@ -561,6 +561,12 @@ private:
         const ref<ConstantExpr> *constantValuesEnd = 0,
         Expr::Width _domain = Expr::Int32, Expr::Width _range = Expr::Int8);
 
+Array(const std::string &_name, uint64_t _size,
+        const ref<ConstantExpr> *constantValuesBegin = 0,
+        const ref<ConstantExpr> *constantValuesEnd = 0,
+        const std::string &_name2 = NULL,
+        Expr::Width _domain = Expr::Int32, Expr::Width _range = Expr::Int8);
+
 public:
   bool isSymbolicArray() const { return constantValues.empty(); }
   bool isConstantArray() const { return !isSymbolicArray(); }

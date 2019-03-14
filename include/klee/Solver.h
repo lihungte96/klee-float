@@ -20,6 +20,14 @@ namespace klee {
   class Expr;
   class SolverImpl;
 
+  struct Range {
+    uint64_t begin;
+    uint64_t end;
+
+    Range(uint64_t begin, uint64_t end) : begin(begin), end(end) {
+    }
+  };
+
   struct Query {
   public:
     const ConstraintManager &constraints;
@@ -186,6 +194,22 @@ namespace klee {
     bool getInitialValues(const Query&, 
                           const std::vector<const Array*> &objects,
                           std::vector< std::vector<unsigned char> > &result);
+
+    /// getRanges - Enumerate the ranges of possible values for an expression,
+    /// in a limited range.
+    ///
+    /// \param [in] constraints - Constraints against which to evaluate the
+    /// expression.
+    /// \param [in] symbObjects - Current symbolic objects.
+    /// \param [in] e - Expression whose values must be enumerated.
+    /// \param [in] start - Expression describing the beginning of the range
+    /// within which enumerated values must fall.
+    /// \param [in] end - Expression describing the end of the range within
+    /// which enumerated values must fall.
+    /// \param [out] ranges - On success, a list of couples [begin:end]
+    /// describing each range.
+    void getRanges(const ConstraintManager &constraints, const std::vector<const Array *> &symbObjects, ref<Expr> e,
+                   ref<Expr> start, ref<Expr> end, std::vector<Range> &ranges);
 
     /// getRange - Compute a tight range of possible values for a given
     /// expression.

@@ -781,3 +781,4 @@ endif()
 # Miscellaneous install
 ################################################################################
 install(FILES include/klee/klee.h DESTINATION include/klee)
+install(DIRECTORY include DESTINATION include)

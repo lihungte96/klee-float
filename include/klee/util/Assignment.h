@@ -51,6 +51,11 @@ namespace klee {
     template<typename InputIterator>
     bool satisfies(InputIterator begin, InputIterator end);
     void dump();
+
+    void add(const Array *object, const std::vector<unsigned char> &value) {
+        bindings.insert(std::make_pair(object, value));
+    }
+
   };
   
   class AssignmentEvaluator : public ExprEvaluator {

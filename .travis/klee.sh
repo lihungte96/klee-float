@@ -182,7 +182,7 @@ fi
 ###############################################################################
 if [ "X${USE_CMAKE}" == "X1" ]; then
   echo unittests
-  make unittests
+  #make unittests
 else
   # The unittests makefile doesn't seem to have been packaged so get it from SVN
   sudo mkdir -p /usr/lib/llvm-${LLVM_VERSION}/build/unittests/
@@ -201,7 +201,7 @@ fi
 ###############################################################################
 if [ "X${USE_CMAKE}" == "X1" ]; then
   echo systemtests
-  make systemtests
+  #make systemtests
 else
   # Note can't use ``make check`` because llvm-lit is not available
   cd test

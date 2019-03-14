@@ -1,11 +1,11 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Dan Liew <daniel.liew@imperial.ac.uk>
 
 # FIXME: Docker doesn't currently offer a way to
 # squash the layers from within a Dockerfile so
 # the resulting image is unnecessarily large!
 
-ENV LLVM_VERSION=3.4 \
+ENV LLVM_VERSION=3.9 \
     SOLVERS=Z3 \
     STP_VERSION=2.1.2 \
     DISABLE_ASSERTIONS=0 \
